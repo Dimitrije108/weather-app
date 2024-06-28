@@ -4,45 +4,95 @@ import './style.css';
 
 // Write func to process the data and return an object with only required data
 
-// const getLocation = (data) => {
-//   const name = data.location.name;
-//   const region = data.location.region;
-//   const country = data.location.country;
+const getLocation = (data) => {
+  const name = data.location.name;
+  const region = data.location.region;
+  const country = data.location.country;
 
-//   return { name, region, country };
-// };
+  return { name, region, country };
+};
 
-// const getTodaysWeather = (data) => {
-// 	const celsius = {
-// 		temp: data.current.temp_c,
-// 	}
+const getTodaysWeather = (data) => {
+  const celsius = {
+    temp: data.current.temp_c,
+    feelsLike: data.current.feelslike_c,
+    wind: data.current.wind_kph,
+    maxTemp: data.forecast.forecastday[0].day.maxtemp_c,
+    minTemp: data.forecast.forecastday[0].day.mintemp_c,
+  };
 
-// 	const fahrenheit = {
-// 		temp: data.current.temp_c,
-// 	}
+  const fahrenheit = {
+    temp: data.current.temp_f,
+    feelsLike: data.current.feelslike_f,
+    wind: data.current.wind_mph,
+    maxTemp: data.forecast.forecastday[0].day.maxtemp_f,
+    minTemp: data.forecast.forecastday[0].day.mintemp_f,
+  };
 
-//   const tempC = data.current.temp_c;
-//   const tempF = data.current.temp_f;
-//   const isDay = data.current.is_day;
-// 	const condition = data.current.condition.text;
-// 	const feelsLikeC = data.current.feelslike_c;
-// 	const feelsLikeF = data.current.feelslike_f;
+  const isDay = data.current.is_day;
+  const condition = data.current.condition.text;
+  const icon = data.current.condition.icon;
+  const humidity = data.current.humidity;
+  const date = data.forecast.forecastday[0].date;
+  const rain = data.forecast.forecastday[0].day.daily_chance_of_rain;
+  const snow = data.forecast.forecastday[0].day.daily_chance_of_snow;
 
-// 	// separate C and F values into different objects?
-// };
+  return {
+    celsius,
+    fahrenheit,
+    isDay,
+    condition,
+    icon,
+    humidity,
+    date,
+    rain,
+    snow,
+  };
+};
 
-const getForecast = (location) => {
+const getForecast = (data) => {
+  // Array of processed values needed for forecast days
+  const forecastDays = [];
+  // Make an array without the first value since that is for today's weather, not the forecast
+  const [, ...forecastDaysData] = data.forecast.forecastday;
+  // Loop over the rest of the days and extract needed values into new forecastDays array
+  forecastDaysData.forEach((day) => {
+    const forecastDay = {
+      celsius: {
+        maxTemp: day.day.maxtemp_c,
+        minTemp: day.day.mintemp_c,
+      },
+      fahrenheit: {
+        maxTemp: day.day.maxtemp_f,
+        minTemp: day.day.mintemp_f,
+      },
+      date: day.date,
+      condition: day.day.condition.text,
+      icon: day.day.condition.icon,
+      rain: day.day.daily_chance_of_rain,
+      snow: day.day.daily_chance_of_snow,
+    };
+    forecastDays.push(forecastDay);
+  });
+  return forecastDays;
+};
+
+const getWeatherData = (location) => {
   // should this be here or should I pass it the already encoded location?
   const encoded = encodeURI(location);
-  fetch(
+  return fetch(
     `https://api.weatherapi.com/v1/forecast.json?key=745413e844de44248cb173813242106&days=7&q=${encoded}`,
     { mode: 'cors' }
   )
     .then((response) => response.json())
-    .then((response) => console.log(response));
+    .then((response) => response);
 };
 
-getForecast('belgrade');
+// getWeatherData('belgrade');
+
+// getWeatherData('belgrade').then((data) => console.log(getTodaysWeather(data)));
+// getWeatherData('belgrade').then((data) => console.log(getLocation(data)));
+getWeatherData('belgrade').then((data) => console.log(getForecast(data)));
 
 // API requests needed:
 // /forecast.json
