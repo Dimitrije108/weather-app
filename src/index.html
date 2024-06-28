@@ -6,16 +6,45 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="search-container">
-      <form id="search-form">
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Search location..."
+    <header>
+      <div class="logo-container">
+        <img
+          src="assets/sun-logo.svg"
+          class="logo-weather"
+          alt="cloud weather logo"
+          width="60"
+          height="60"
         />
-        <button type="submit">Search</button>
-      </form>
-      <ul class="suggestions"></ul>
-    </div>
+        <div class="text-container">
+          <div class="logo-text">sol de mágico</div>
+          <div class="weather-text">Weather forecast</div>
+        </div>
+      </div>
+      <div class="search-container">
+        <form id="search-form">
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search location..."
+          />
+          <button type="submit">
+            <img
+              src="assets/search-icon.svg"
+              alt="search icon"
+              width="20"
+              height="20"
+            />
+          </button>
+        </form>
+        <ul class="suggestions"></ul>
+      </div>
+    </header>
+    <main>
+      <section class="today-weather">
+        <div class="location"></div>
+        <div class="tw-main"></div>
+      </section>
+      <section class="forecast"></section>
+    </main>
   </body>
 </html>

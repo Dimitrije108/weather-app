@@ -1,1 +1,94 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+
+@font-face {
+  font-family: 'Comfortaa Regular';
+  src: url(assets/fonts/Comfortaa-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Comfortaa Light';
+  src: url(assets/fonts/Comfortaa-Light.ttf);
+}
+
+@font-face {
+  font-family: 'Comfortaa Bold';
+  src: url(assets/fonts/Comfortaa-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Merienda Española';
+  src: url(assets/fonts/Merienda\ Española.ttf);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  font-family: 'Comfortaa Regular', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  margin: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-weather {
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-family: 'Merienda Española';
+  font-size: 2.5rem;
+}
+
+.weather-text {
+  font-family: 'Comfortaa Light';
+  font-size: 1rem;
+}
+
+.search-container {
+  align-self: end;
+}
+
+#search-input {
+  width: 50%;
+  position: relative;
+}
+
+.suggestions {
+  position: absolute;
+}
+
+main {
+  flex-grow: 1;
+  background-color: wheat;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.today-weather {
+  margin: 1rem;
+  background-color: pink;
+}
+
+.forecast {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: lavender;
+}
