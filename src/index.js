@@ -2,13 +2,13 @@
 import html from './index.html';
 import './style.css';
 
-// Write func to process the data and return an object with only required data
+const searchForm = document.querySelector('#search-form');
+const searchInput = document.querySelector('#search-input');
 
 const getLocation = (data) => {
   const name = data.location.name;
   const region = data.location.region;
   const country = data.location.country;
-
   return { name, region, country };
 };
 
@@ -77,22 +77,30 @@ const getForecast = (data) => {
   return forecastDays;
 };
 
+const processData = (data) => {
+  const location = getLocation(data);
+  const todaysWeather = getTodaysWeather(data);
+  const forecast = getForecast(data);
+  return { location, todaysWeather, forecast };
+};
+
 const getWeatherData = (location) => {
-  // should this be here or should I pass it the already encoded location?
-  const encoded = encodeURI(location);
   return fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=745413e844de44248cb173813242106&days=7&q=${encoded}`,
+    `https://api.weatherapi.com/v1/forecast.json?key=745413e844de44248cb173813242106&days=7&q=${location}`,
     { mode: 'cors' }
   )
     .then((response) => response.json())
     .then((response) => response);
 };
 
-// getWeatherData('belgrade');
+// getWeatherData('belgrade').then((data) => console.log(processData(data)));
 
-// getWeatherData('belgrade').then((data) => console.log(getTodaysWeather(data)));
-// getWeatherData('belgrade').then((data) => console.log(getLocation(data)));
-getWeatherData('belgrade').then((data) => console.log(getForecast(data)));
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const encodedInput = encodeURI(searchInput.value);
+  getWeatherData(encodedInput).then((data) => console.log(processData(data)));
+  searchInput.value = '';
+});
 
 // API requests needed:
 // /forecast.json
