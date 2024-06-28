@@ -4,6 +4,7 @@ import './style.css';
 
 const searchForm = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
+const list = document.querySelector('.suggestions');
 
 const getLocation = (data) => {
   const name = data.location.name;
@@ -77,6 +78,15 @@ const getForecast = (data) => {
   return forecastDays;
 };
 
+const displaySuggestions = (data) => {
+  // For every suggestion create a list element and append it
+  data.forEach((locationData) => {
+    const location = document.createElement('li');
+    location.textContent = `${locationData.name}, ${locationData.region}, ${locationData.country}`;
+    list.appendChild(location);
+  });
+};
+
 const processData = (data) => {
   const location = getLocation(data);
   const todaysWeather = getTodaysWeather(data);
@@ -93,29 +103,36 @@ const getWeatherData = (location) => {
     .then((response) => response);
 };
 
+const getSuggestionData = (location) => {
+  return fetch(
+    `https://api.weatherapi.com/v1/search.json?key=745413e844de44248cb173813242106&q=${location}`,
+    { mode: 'cors' }
+  )
+    .then((response) => response.json())
+    .then((response) => response);
+};
+
 // getWeatherData('belgrade').then((data) => console.log(processData(data)));
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  // needs handler and prevent nothing being searched
   const encodedInput = encodeURI(searchInput.value);
   getWeatherData(encodedInput).then((data) => console.log(processData(data)));
   searchInput.value = '';
 });
 
-// API requests needed:
-// /forecast.json
-// /search.json
+searchInput.addEventListener('input', () => {
+  // needs a handler
+  const encodedInput = encodeURI(searchInput.value);
+  if (encodedInput !== '') {
+    list.textContent = '';
+    getSuggestionData(encodedInput).then((data) => displaySuggestions(data));
+  }
+});
 
-// The Search/Autocomplete API
-
-// How It Works
-// User Input: The user starts typing a location name in an input field (e.g., a search bar).
-// API Request: As the user types, the application sends requests to the WeatherAPI.com's Search/Autocomplete
-// API with the partial or complete input string.
-// API Response: The API returns a list of matching locations. Each location is represented as an object
-// containing details such as the name of the city or town, its coordinates (latitude and longitude), and possibly
-// other information like country, region, etc.
-// Display Suggestions: The application displays the list of matching locations to the user, typically in a
-// dropdown menu or list beneath the input field.
-// User Selection: The user selects one of the suggested locations, and the application can then use this
-// selected location to fetch weather data or other relevant information.
+// 1. Input event listener ✅
+// 2. Dynamically request the Search/Autocomplete Weather API ✅
+// 3. API responds with array of location objects ✅
+// 4. Display locations in a dropdown list ✅
+// 5. Each option needs to be clickable/selectable - that's CSS's job
