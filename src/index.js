@@ -95,15 +95,78 @@ const displayMain = (location, weather, measurementSystem) => {
 
   nameAndRegion.textContent = `${location.name}, ${location.region}`;
   country.textContent = location.country;
-  high.textContent = weather[measurementSystem].maxTemp;
-  low.textContent = weather[measurementSystem].minTemp;
+  high.textContent = `${weather[measurementSystem].maxTemp}°`;
+  low.textContent = `${weather[measurementSystem].minTemp}°`;
   icon.src = weather.icon;
-  temp.textContent = weather[measurementSystem].temp;
+  temp.textContent = `${weather[measurementSystem].temp}°`;
   condition.textContent = weather.condition;
   rain.textContent = `Rain: ${weather.rain}%`;
   wind.textContent = `Wind: ${weather[measurementSystem].windSpeed} ${weather.windDir}`;
-  feelsLike.textContent = `Feels like: ${weather[measurementSystem].feelsLike}`;
+  feelsLike.textContent = `Feels like: ${weather[measurementSystem].feelsLike}°`;
   humidity.textContent = `Humidity: ${weather.humidity}%`;
+};
+// Convert the date received from Weather API into a
+// locale format of a day and a month (e.g. 6/30)
+const convertDate = (date) => {
+  const convertedDate = new Date(date);
+  const dateOptions = { day: 'numeric', month: 'numeric' };
+  const userLocale = navigator.language || 'en-US';
+  return convertedDate.toLocaleDateString(userLocale, dateOptions);
+};
+// Extract day of the week from Weather API date
+const extractDay = (date) => {
+  const convertedDate = new Date(date);
+  const dayOption = { weekday: 'short' };
+  return convertedDate.toLocaleDateString(undefined, dayOption);
+};
+
+const displayForecast = (forecast, measurementSystem) => {
+  const section = document.querySelector('.forecast');
+  forecast.forEach((dayObj) => {
+    const container = document.createElement('div');
+    const wrapper = document.createElement('div');
+    const highLowWrapper = document.createElement('div');
+    const forecastInfoWrapper = document.createElement('div');
+    const day = document.createElement('div');
+    const date = document.createElement('div');
+    const high = document.createElement('div');
+    const low = document.createElement('div');
+    const condition = document.createElement('div');
+    const icon = document.createElement('img');
+    const rain = document.createElement('div');
+
+    container.classList.add(`forecast-container`);
+    wrapper.classList.add('forecast-wrapper');
+    highLowWrapper.classList.add('forecast-high-low');
+    forecastInfoWrapper.classList.add('forecast-info');
+    day.classList.add('forecast-day');
+    date.classList.add('forecast-date');
+    high.classList.add('forecast-high');
+    low.classList.add('forecast-low');
+    condition.classList.add('forecast-condition');
+    rain.classList.add('forecast-rain');
+
+    date.textContent = convertDate(dayObj.date);
+    day.textContent = extractDay(dayObj.date);
+    high.textContent = dayObj[measurementSystem].maxTemp;
+    low.textContent = dayObj[measurementSystem].minTemp;
+    condition.textContent = dayObj.condition;
+    icon.src = dayObj.icon;
+    rain.textContent = `Rain: ${dayObj.rain}%`;
+
+    highLowWrapper.appendChild(high);
+    highLowWrapper.appendChild(low);
+    forecastInfoWrapper.appendChild(icon);
+    forecastInfoWrapper.appendChild(condition);
+    forecastInfoWrapper.appendChild(rain);
+    wrapper.appendChild(highLowWrapper);
+    wrapper.appendChild(forecastInfoWrapper);
+
+    container.appendChild(day);
+    container.appendChild(date);
+    container.appendChild(wrapper);
+    section.appendChild(container);
+  });
 };
 
 const displayData = (data) => {
@@ -113,7 +176,7 @@ const displayData = (data) => {
   // Handle isDay: 1; to display day or night maybe
   // Also snow if it's winter? we'll see how later
   displayMain(location, todaysWeather, 'celsius');
-  // displayForecast(forecast);
+  displayForecast(forecast, 'celsius');
 };
 
 const displaySuggestions = (data) => {
@@ -175,3 +238,10 @@ searchInput.addEventListener('input', () => {
 // 4. Display locations in a dropdown list ✅
 // 5. Each option needs to be clickable/selectable - that's CSS's job
 // 6. Sometimes dropdown doesn't clear when input is empty - fix it
+
+// TESTING GROUNDS YESSIR
+
+// const convertedDate = new Date('2024-06-30');
+// const dateOptions = { weekday: 'short', day: 'numeric', month: 'numeric' };
+// const userLocale = navigator.language || 'en-US';
+// console.log(convertedDate.toLocaleDateString(userLocale, dateOptions));
