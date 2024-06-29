@@ -17,7 +17,7 @@ const getTodaysWeather = (data) => {
   const celsius = {
     temp: data.current.temp_c,
     feelsLike: data.current.feelslike_c,
-    wind: data.current.wind_kph,
+    windSpeed: `${data.current.wind_kph}kph`,
     maxTemp: data.forecast.forecastday[0].day.maxtemp_c,
     minTemp: data.forecast.forecastday[0].day.mintemp_c,
   };
@@ -25,7 +25,7 @@ const getTodaysWeather = (data) => {
   const fahrenheit = {
     temp: data.current.temp_f,
     feelsLike: data.current.feelslike_f,
-    wind: data.current.wind_mph,
+    windSpeed: `${data.current.wind_mph}mph`,
     maxTemp: data.forecast.forecastday[0].day.maxtemp_f,
     minTemp: data.forecast.forecastday[0].day.mintemp_f,
   };
@@ -35,6 +35,7 @@ const getTodaysWeather = (data) => {
   const icon = data.current.condition.icon;
   const humidity = data.current.humidity;
   const date = data.forecast.forecastday[0].date;
+  const windDir = data.current.wind_dir;
   const rain = data.forecast.forecastday[0].day.daily_chance_of_rain;
   const snow = data.forecast.forecastday[0].day.daily_chance_of_snow;
 
@@ -46,6 +47,7 @@ const getTodaysWeather = (data) => {
     icon,
     humidity,
     date,
+    windDir,
     rain,
     snow,
   };
@@ -76,6 +78,42 @@ const getForecast = (data) => {
     forecastDays.push(forecastDay);
   });
   return forecastDays;
+};
+
+const displayMain = (location, weather, measurementSystem) => {
+  const nameAndRegion = document.querySelector('.name-region');
+  const country = document.querySelector('.country');
+  const high = document.querySelector('.tw-high');
+  const low = document.querySelector('.tw-low');
+  const icon = document.querySelector('.tw-icon');
+  const temp = document.querySelector('.tw-temp');
+  const condition = document.querySelector('.tw-condition');
+  const rain = document.querySelector('.tw-rain');
+  const wind = document.querySelector('.tw-wind');
+  const feelsLike = document.querySelector('.tw-feels-like');
+  const humidity = document.querySelector('.tw-humidity');
+
+  nameAndRegion.textContent = `${location.name}, ${location.region}`;
+  country.textContent = location.country;
+  high.textContent = weather[measurementSystem].maxTemp;
+  low.textContent = weather[measurementSystem].minTemp;
+  icon.src = weather.icon;
+  temp.textContent = weather[measurementSystem].temp;
+  condition.textContent = weather.condition;
+  rain.textContent = `Rain: ${weather.rain}%`;
+  wind.textContent = `Wind: ${weather[measurementSystem].windSpeed} ${weather.windDir}`;
+  feelsLike.textContent = `Feels like: ${weather[measurementSystem].feelsLike}`;
+  humidity.textContent = `Humidity: ${weather.humidity}%`;
+};
+
+const displayData = (data) => {
+  const location = data.location;
+  const todaysWeather = data.todaysWeather;
+  const forecast = data.forecast;
+  // Handle isDay: 1; to display day or night maybe
+  // Also snow if it's winter? we'll see how later
+  displayMain(location, todaysWeather, 'celsius');
+  // displayForecast(forecast);
 };
 
 const displaySuggestions = (data) => {
@@ -111,8 +149,8 @@ const getSuggestionData = (location) => {
     .then((response) => response.json())
     .then((response) => response);
 };
-
-getWeatherData('belgrade').then((data) => console.log(processData(data)));
+// Needs error handling with .catch
+getWeatherData('belgrade').then((data) => displayData(processData(data)));
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -136,3 +174,4 @@ searchInput.addEventListener('input', () => {
 // 3. API responds with array of location objects ✅
 // 4. Display locations in a dropdown list ✅
 // 5. Each option needs to be clickable/selectable - that's CSS's job
+// 6. Sometimes dropdown doesn't clear when input is empty - fix it
