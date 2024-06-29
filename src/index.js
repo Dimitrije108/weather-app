@@ -112,7 +112,7 @@ const getSuggestionData = (location) => {
     .then((response) => response);
 };
 
-// getWeatherData('belgrade').then((data) => console.log(processData(data)));
+getWeatherData('belgrade').then((data) => console.log(processData(data)));
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();

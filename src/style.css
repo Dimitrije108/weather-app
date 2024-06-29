@@ -85,10 +85,25 @@ main {
 .today-weather {
   margin: 1rem;
   background-color: pink;
+  display: flex;
+  flex-direction: column;
+}
+
+.tw-main {
+  display: flex;
+}
+
+.tw-row-wrapper {
+  display: flex;
 }
 
 .forecast {
-  margin: 1rem;
+  margin: 1rem 1rem 1rem 0;
   padding: 1rem;
   background-color: lavender;
+}
+
+.forecast-wrapper {
+  display: flex;
+  align-items: center;
 }

@@ -41,10 +41,53 @@
     </header>
     <main>
       <section class="today-weather">
-        <div class="location"></div>
-        <div class="tw-main"></div>
+        <div class="location">
+          <h5 class="name-region">Belgrade, Central Serbia</h5>
+          <div class="country">Serbia</div>
+        </div>
+        <div class="tw-main">
+          <div class="tw-high-low">
+            <div class="tw-high">28</div>
+            <div class="tw-low">17</div>
+          </div>
+          <div class="tw-current">
+            <div class="tw-wrapper">
+              <img
+                src="//cdn.weatherapi.com/weather/64x64/day/116.png"
+                alt=""
+              />
+              <div class="tw-temp">27</div>
+            </div>
+            <div class="tw-condition">Sunny</div>
+          </div>
+        </div>
+        <div class="tw-row-wrapper">
+          <div class="tw-row-one">
+            <div>Rain:&nbsp;</div>
+            <div>Wind:&nbsp;</div>
+          </div>
+          <div class="tw-row-two">
+            <div>Feels like:&nbsp;</div>
+            <div>Humidity:&nbsp;</div>
+          </div>
+        </div>
       </section>
-      <section class="forecast"></section>
+      <section class="forecast">
+        <!-- create dynamically -->
+        <div class="forecast-day">Sun</div>
+        <div class="forecast-date">29/6</div>
+        <div class="forecast-wrapper">
+          <div class="forecast-high-low">
+            <div class="forecast-high">32</div>
+            <div class="forecast-low">21</div>
+          </div>
+          <div class="forecast-info">
+            <img src="//cdn.weatherapi.com/weather/64x64/day/116.png" alt="" />
+            <div class="forecast-condition">Sunny</div>
+            <div>Rain:&nbsp;</div>
+          </div>
+        </div>
+      </section>
     </main>
   </body>
 </html>
