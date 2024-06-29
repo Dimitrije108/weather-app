@@ -5,14 +5,14 @@ import './style.css';
 const searchForm = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 const list = document.querySelector('.suggestions');
-
+// Process location data
 const getLocation = (data) => {
   const name = data.location.name;
   const region = data.location.region;
   const country = data.location.country;
   return { name, region, country };
 };
-
+// Process current(todays) weather data
 const getTodaysWeather = (data) => {
   const celsius = {
     temp: data.current.temp_c,
@@ -52,7 +52,7 @@ const getTodaysWeather = (data) => {
     snow,
   };
 };
-
+// Process forecast data
 const getForecast = (data) => {
   // Array of processed values needed for forecast days
   const forecastDays = [];
@@ -79,7 +79,7 @@ const getForecast = (data) => {
   });
   return forecastDays;
 };
-
+// Display the main page current(that days) weather
 const displayMain = (location, weather, measurementSystem) => {
   const nameAndRegion = document.querySelector('.name-region');
   const country = document.querySelector('.country');
@@ -119,7 +119,7 @@ const extractDay = (date) => {
   const dayOption = { weekday: 'short' };
   return convertedDate.toLocaleDateString(undefined, dayOption);
 };
-
+// Loop through all available forecast days and display their basic info
 const displayForecast = (forecast, measurementSystem) => {
   const section = document.querySelector('.forecast');
   forecast.forEach((dayObj) => {
@@ -178,7 +178,8 @@ const displayData = (data) => {
   displayMain(location, todaysWeather, 'celsius');
   displayForecast(forecast, 'celsius');
 };
-
+// Displays all the search bar user input suggestions
+// in a dropdown menu form below the search bar itself
 const displaySuggestions = (data) => {
   // For every suggestion create a list element and append it
   data.forEach((locationData) => {
@@ -187,14 +188,14 @@ const displaySuggestions = (data) => {
     list.appendChild(location);
   });
 };
-
+// All the processed weather data in one place
 const processData = (data) => {
   const location = getLocation(data);
   const todaysWeather = getTodaysWeather(data);
   const forecast = getForecast(data);
   return { location, todaysWeather, forecast };
 };
-
+// Retrieves current weather as well as the available forecast (Weather API (3days))
 const getWeatherData = (location) => {
   return fetch(
     `https://api.weatherapi.com/v1/forecast.json?key=745413e844de44248cb173813242106&days=7&q=${location}`,
@@ -203,7 +204,7 @@ const getWeatherData = (location) => {
     .then((response) => response.json())
     .then((response) => response);
 };
-
+// Retrieves suggestion locations based on user input
 const getSuggestionData = (location) => {
   return fetch(
     `https://api.weatherapi.com/v1/search.json?key=745413e844de44248cb173813242106&q=${location}`,
@@ -226,8 +227,8 @@ searchForm.addEventListener('submit', (e) => {
 searchInput.addEventListener('input', () => {
   // needs a handler
   const encodedInput = encodeURI(searchInput.value);
+  list.textContent = '';
   if (encodedInput !== '') {
-    list.textContent = '';
     getSuggestionData(encodedInput).then((data) => displaySuggestions(data));
   }
 });
@@ -240,8 +241,3 @@ searchInput.addEventListener('input', () => {
 // 6. Sometimes dropdown doesn't clear when input is empty - fix it
 
 // TESTING GROUNDS YESSIR
-
-// const convertedDate = new Date('2024-06-30');
-// const dateOptions = { weekday: 'short', day: 'numeric', month: 'numeric' };
-// const userLocale = navigator.language || 'en-US';
-// console.log(convertedDate.toLocaleDateString(userLocale, dateOptions));
