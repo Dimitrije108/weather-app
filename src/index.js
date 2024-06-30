@@ -185,6 +185,7 @@ const displaySuggestions = (data) => {
   data.forEach((locationData) => {
     const location = document.createElement('li');
     location.textContent = `${locationData.name}, ${locationData.region}, ${locationData.country}`;
+    location.id = locationData.id;
     list.appendChild(location);
   });
 };
@@ -213,15 +214,25 @@ const getSuggestionData = (location) => {
     .then((response) => response.json())
     .then((response) => response);
 };
+
 // Needs error handling with .catch
+
 getWeatherData('belgrade').then((data) => displayData(processData(data)));
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
   // needs handler and prevent nothing being searched
   const encodedInput = encodeURI(searchInput.value);
-  getWeatherData(encodedInput).then((data) => console.log(processData(data)));
+  getWeatherData(encodedInput).then((data) => displayData(processData(data)));
   searchInput.value = '';
+  list.textContent = '';
+});
+
+list.addEventListener('click', (e) => {
+  const id = `id:${Number(e.target.id)}`;
+  getWeatherData(id).then((data) => displayData(processData(data)));
+  searchInput.value = '';
+  list.textContent = '';
 });
 
 searchInput.addEventListener('input', () => {
@@ -238,6 +249,6 @@ searchInput.addEventListener('input', () => {
 // 3. API responds with array of location objects ✅
 // 4. Display locations in a dropdown list ✅
 // 5. Each option needs to be clickable/selectable - that's CSS's job
-// 6. Sometimes dropdown doesn't clear when input is empty - fix it
+// 6. Sometimes dropdown doesn't clear when input is empty - fix it ✅
 
 // TESTING GROUNDS YESSIR
