@@ -5,6 +5,10 @@ import './style.css';
 const searchForm = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 const list = document.querySelector('.suggestions');
+const celsiusBtn = document.querySelector('.celsius-btn');
+const fahrenheitBtn = document.querySelector('.fahrenheit-btn');
+let currentLocationData = '';
+let tempUnit = 'C';
 // Process location data
 const getLocation = (data) => {
   const name = data.location.name;
@@ -14,7 +18,7 @@ const getLocation = (data) => {
 };
 // Process current(todays) weather data
 const getTodaysWeather = (data) => {
-  const celsius = {
+  const C = {
     temp: data.current.temp_c,
     feelsLike: data.current.feelslike_c,
     windSpeed: `${data.current.wind_kph}kph`,
@@ -22,7 +26,7 @@ const getTodaysWeather = (data) => {
     minTemp: data.forecast.forecastday[0].day.mintemp_c,
   };
 
-  const fahrenheit = {
+  const F = {
     temp: data.current.temp_f,
     feelsLike: data.current.feelslike_f,
     windSpeed: `${data.current.wind_mph}mph`,
@@ -40,8 +44,8 @@ const getTodaysWeather = (data) => {
   const snow = data.forecast.forecastday[0].day.daily_chance_of_snow;
 
   return {
-    celsius,
-    fahrenheit,
+    C,
+    F,
     isDay,
     condition,
     icon,
@@ -61,11 +65,11 @@ const getForecast = (data) => {
   // Loop over the rest of the days and extract needed values into new forecastDays array
   forecastDaysData.forEach((day) => {
     const forecastDay = {
-      celsius: {
+      C: {
         maxTemp: day.day.maxtemp_c,
         minTemp: day.day.mintemp_c,
       },
-      fahrenheit: {
+      F: {
         maxTemp: day.day.maxtemp_f,
         minTemp: day.day.mintemp_f,
       },
@@ -79,8 +83,8 @@ const getForecast = (data) => {
   });
   return forecastDays;
 };
-// Display the main page current(that days) weather
-const displayMain = (location, weather, measurementSystem) => {
+// Display the main page current weather
+const displayMain = (location, weather, tempUnit) => {
   const nameAndRegion = document.querySelector('.name-region');
   const country = document.querySelector('.country');
   const high = document.querySelector('.tw-high');
@@ -95,14 +99,14 @@ const displayMain = (location, weather, measurementSystem) => {
 
   nameAndRegion.textContent = `${location.name}, ${location.region}`;
   country.textContent = location.country;
-  high.textContent = `${weather[measurementSystem].maxTemp}°`;
-  low.textContent = `${weather[measurementSystem].minTemp}°`;
+  high.textContent = `${weather[tempUnit].maxTemp}°${tempUnit}`;
+  low.textContent = `${weather[tempUnit].minTemp}°${tempUnit}`;
   icon.src = weather.icon;
-  temp.textContent = `${weather[measurementSystem].temp}°`;
+  temp.textContent = `${weather[tempUnit].temp}°${tempUnit}`;
   condition.textContent = weather.condition;
   rain.textContent = `Rain: ${weather.rain}%`;
-  wind.textContent = `Wind: ${weather[measurementSystem].windSpeed} ${weather.windDir}`;
-  feelsLike.textContent = `Feels like: ${weather[measurementSystem].feelsLike}°`;
+  wind.textContent = `Wind: ${weather[tempUnit].windSpeed} ${weather.windDir}`;
+  feelsLike.textContent = `Feels like: ${weather[tempUnit].feelsLike}°${tempUnit}`;
   humidity.textContent = `Humidity: ${weather.humidity}%`;
 };
 // Convert the date received from Weather API into a
@@ -120,8 +124,9 @@ const extractDay = (date) => {
   return convertedDate.toLocaleDateString(undefined, dayOption);
 };
 // Loop through all available forecast days and display their basic info
-const displayForecast = (forecast, measurementSystem) => {
+const displayForecast = (forecast, tempUnit) => {
   const section = document.querySelector('.forecast');
+  section.textContent = '';
   forecast.forEach((dayObj) => {
     const container = document.createElement('div');
     const wrapper = document.createElement('div');
@@ -148,8 +153,8 @@ const displayForecast = (forecast, measurementSystem) => {
 
     date.textContent = convertDate(dayObj.date);
     day.textContent = extractDay(dayObj.date);
-    high.textContent = dayObj[measurementSystem].maxTemp;
-    low.textContent = dayObj[measurementSystem].minTemp;
+    high.textContent = `${dayObj[tempUnit].maxTemp}°${tempUnit}`;
+    low.textContent = `${dayObj[tempUnit].minTemp}°${tempUnit}`;
     condition.textContent = dayObj.condition;
     icon.src = dayObj.icon;
     rain.textContent = `Rain: ${dayObj.rain}%`;
@@ -175,8 +180,8 @@ const displayData = (data) => {
   const forecast = data.forecast;
   // Handle isDay: 1; to display day or night maybe
   // Also snow if it's winter? we'll see how later
-  displayMain(location, todaysWeather, 'celsius');
-  displayForecast(forecast, 'celsius');
+  displayMain(location, todaysWeather, tempUnit);
+  displayForecast(forecast, tempUnit);
 };
 // Displays all the search bar user input suggestions
 // in a dropdown menu form below the search bar itself
@@ -194,7 +199,7 @@ const processData = (data) => {
   const location = getLocation(data);
   const todaysWeather = getTodaysWeather(data);
   const forecast = getForecast(data);
-  return { location, todaysWeather, forecast };
+  return (currentLocationData = { location, todaysWeather, forecast });
 };
 // Retrieves current weather as well as the available forecast (Weather API (3days))
 const getWeatherData = (location) => {
@@ -216,8 +221,6 @@ const getSuggestionData = (location) => {
 };
 
 // Needs error handling with .catch
-
-getWeatherData('belgrade').then((data) => displayData(processData(data)));
 
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -244,11 +247,25 @@ searchInput.addEventListener('input', () => {
   }
 });
 
-// 1. Input event listener ✅
-// 2. Dynamically request the Search/Autocomplete Weather API ✅
-// 3. API responds with array of location objects ✅
-// 4. Display locations in a dropdown list ✅
-// 5. Each option needs to be clickable/selectable - that's CSS's job
-// 6. Sometimes dropdown doesn't clear when input is empty - fix it ✅
+const handleTempUnitChange = (value) => {
+  tempUnit = value;
+  displayData(currentLocationData);
+};
 
-// TESTING GROUNDS YESSIR
+celsiusBtn.addEventListener('click', (e) => {
+  handleTempUnitChange(e.target.value);
+});
+
+fahrenheitBtn.addEventListener('click', (e) => {
+  handleTempUnitChange(e.target.value);
+});
+
+getWeatherData('belgrade').then((data) => displayData(processData(data)));
+
+// implement fahrenheit/celsius toggle switch
+
+// modules:
+// API module
+// DOM module
+// Event module?
+// processData module?
