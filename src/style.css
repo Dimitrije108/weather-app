@@ -33,6 +33,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 ul {
@@ -42,13 +43,14 @@ ul {
 }
 
 header {
-  margin: 0 1rem;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr;
+  margin: 1rem 1rem 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo-container {
+  margin-right: 2rem;
   display: flex;
   align-items: center;
 }
@@ -68,12 +70,21 @@ header {
 }
 
 .search-container {
-  align-self: end;
+  width: 50%;
+  min-width: 250px;
+  margin-right: 1rem;
+  align-self: flex-end;
+  display: flex;
+}
+
+#search-form {
+  flex: 1;
+  display: flex;
 }
 
 #search-input {
-  width: 50%;
   position: relative;
+  flex: 1;
 }
 
 .suggestions {
@@ -95,9 +106,14 @@ header {
   background-color: rgb(255, 255, 255);
 }
 
+.temperature-switch {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+}
+
 main {
   flex-grow: 1;
-  background-color: wheat;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 1fr;
@@ -105,7 +121,9 @@ main {
 
 .today-weather {
   margin: 1rem;
-  background-color: pink;
+  padding: 1rem;
+  background-color: lavender;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -122,9 +140,34 @@ main {
   margin: 1rem 1rem 1rem 0;
   padding: 1rem;
   background-color: lavender;
+  border-radius: 1rem;
 }
 
 .forecast-wrapper {
   display: flex;
   align-items: center;
+}
+
+.loader {
+  opacity: 0.9;
+  margin: auto;
+  background-color: #e86c16;
+  border: 10px solid #eaf0f6;
+  border-radius: 50%;
+  border-top: 10px solid #fecb69;
+  width: 50px;
+  height: 50px;
+  animation: spinner 2s linear infinite;
+  position: absolute;
+  top: 30%;
+  right: 50%;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
