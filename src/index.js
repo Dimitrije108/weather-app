@@ -222,20 +222,45 @@ const getSuggestionData = (location) => {
 
 // Needs error handling with .catch
 
+const handleTempUnitChange = (value) => {
+  tempUnit = value;
+  displayData(currentLocationData);
+};
+
+const displayLoader = () => {
+  document.querySelector('.overlay').style.display = 'block';
+  document.querySelector('.loader').style.display = 'block';
+};
+
+const hideLoader = () => {
+  document.querySelector('.overlay').style.display = 'none';
+  document.querySelector('.loader').style.display = 'none';
+};
+
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  displayLoader();
   // needs handler and prevent nothing being searched
   const encodedInput = encodeURI(searchInput.value);
-  getWeatherData(encodedInput).then((data) => displayData(processData(data)));
-  searchInput.value = '';
-  list.textContent = '';
+  getWeatherData(encodedInput)
+    .then((data) => displayData(processData(data)))
+    .then(() => {
+      searchInput.value = '';
+      list.textContent = '';
+      hideLoader();
+    });
 });
 
 list.addEventListener('click', (e) => {
+  displayLoader();
   const id = `id:${Number(e.target.id)}`;
-  getWeatherData(id).then((data) => displayData(processData(data)));
-  searchInput.value = '';
-  list.textContent = '';
+  getWeatherData(id)
+    .then((data) => displayData(processData(data)))
+    .then(() => {
+      searchInput.value = '';
+      list.textContent = '';
+      hideLoader();
+    });
 });
 
 searchInput.addEventListener('input', () => {
@@ -247,11 +272,6 @@ searchInput.addEventListener('input', () => {
   }
 });
 
-const handleTempUnitChange = (value) => {
-  tempUnit = value;
-  displayData(currentLocationData);
-};
-
 celsiusBtn.addEventListener('click', (e) => {
   handleTempUnitChange(e.target.value);
 });
@@ -261,8 +281,6 @@ fahrenheitBtn.addEventListener('click', (e) => {
 });
 
 getWeatherData('belgrade').then((data) => displayData(processData(data)));
-
-// implement fahrenheit/celsius toggle switch
 
 // modules:
 // API module

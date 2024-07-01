@@ -148,8 +148,20 @@ main {
   align-items: center;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(141, 141, 141, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 2;
+  display: none;
+}
+
 .loader {
-  opacity: 0.9;
+  opacity: 1;
   margin: auto;
   background-color: #e86c16;
   border: 10px solid #eaf0f6;
@@ -161,6 +173,12 @@ main {
   position: absolute;
   top: 30%;
   right: 50%;
+  z-index: 3;
+  display: none;
+}
+
+.active {
+  display: visible;
 }
 
 @keyframes spinner {
