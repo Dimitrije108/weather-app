@@ -244,11 +244,9 @@ searchForm.addEventListener('submit', (e) => {
   const encodedInput = encodeURI(searchInput.value);
   getWeatherData(encodedInput)
     .then((data) => displayData(processData(data)))
-    .then(() => {
-      searchInput.value = '';
-      list.textContent = '';
-      hideLoader();
-    });
+    .then(() => hideLoader());
+  searchInput.value = '';
+  list.textContent = '';
 });
 
 list.addEventListener('click', (e) => {
@@ -256,11 +254,9 @@ list.addEventListener('click', (e) => {
   const id = `id:${Number(e.target.id)}`;
   getWeatherData(id)
     .then((data) => displayData(processData(data)))
-    .then(() => {
-      searchInput.value = '';
-      list.textContent = '';
-      hideLoader();
-    });
+    .then(() => hideLoader());
+  searchInput.value = '';
+  list.textContent = '';
 });
 
 searchInput.addEventListener('input', () => {
