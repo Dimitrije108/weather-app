@@ -91,13 +91,17 @@ header {
   display: flex;
 }
 
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
 #search-input {
   margin-right: 5px;
   padding: 6px 12px;
   border: 1px solid #bfc1c5;
   border-radius: 1rem;
-
-  position: relative;
   flex: 1;
 }
 
@@ -122,22 +126,28 @@ header {
 }
 
 .suggestions {
+  width: 99%;
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 2px 4px 10px -3px rgba(176, 176, 176, 1);
+  border-radius: 4px;
+  top: 2rem;
 }
 
 .suggestions > li {
   margin: 0;
-  padding: 0.6rem 1rem;
-  border-top: 1px solid rgb(168, 168, 168);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  font-family: 'Comfortaa Light';
   white-space: nowrap;
   cursor: pointer;
 }
 
 .suggestions > li:hover {
-  background-color: rgb(255, 255, 255);
+  font-family: 'Comfortaa Regular';
+  background-color: #ffffff;
+  border-bottom: 1px solid rgb(105, 105, 105);
+  border-radius: 4px;
 }
 
 .temperature-switch {
@@ -146,9 +156,13 @@ header {
 }
 
 .celsius-btn {
-  margin-bottom: 5.2px;
-  padding-bottom: 1px;
   border-bottom: 1px solid rgb(143, 143, 143);
+  font-family: 'Comfortaa Bold';
+}
+
+.fahrenheit-btn {
+  padding-top: 4px;
+  font-family: 'Comfortaa Light';
 }
 
 main {

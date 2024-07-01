@@ -22,11 +22,14 @@
       </div>
       <div class="search-container">
         <form id="search-form">
-          <input
-            type="search"
-            id="search-input"
-            placeholder="Search location..."
-          />
+          <div class="input-wrapper">
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search location..."
+            />
+            <ul class="suggestions"></ul>
+          </div>
           <button type="submit" class="search-btn">
             <img
               src="assets/search-icon.svg"
@@ -36,7 +39,6 @@
             />
           </button>
         </form>
-        <ul class="suggestions"></ul>
       </div>
       <div class="temperature-switch">
         <button class="celsius-btn" value="C">°C</button>
