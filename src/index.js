@@ -273,10 +273,14 @@ searchInput.addEventListener('input', () => {
 });
 
 celsiusBtn.addEventListener('click', (e) => {
+  fahrenheitBtn.style.fontFamily = 'Comfortaa Light';
+  celsiusBtn.style.fontFamily = 'Comfortaa Bold';
   handleTempUnitChange(e.target.value);
 });
 
 fahrenheitBtn.addEventListener('click', (e) => {
+  celsiusBtn.style.fontFamily = 'Comfortaa Light';
+  fahrenheitBtn.style.fontFamily = 'Comfortaa Bold';
   handleTempUnitChange(e.target.value);
 });
 
