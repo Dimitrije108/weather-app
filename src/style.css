@@ -20,17 +20,23 @@
   src: url(assets/fonts/Merienda\ Española.ttf);
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   height: 100%;
   width: 100%;
   font-family: 'Comfortaa Regular', sans-serif;
 }
 
 body {
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -53,11 +59,13 @@ button {
 }
 
 header {
-  margin: 1rem 1rem 0 1rem;
+  margin: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* color background-color: #e86c16; */
 
 .logo-container {
   margin-right: 2rem;
@@ -80,7 +88,7 @@ header {
 }
 
 .search-container {
-  width: 50%;
+  width: 40%;
   min-width: 250px;
   margin-right: 1rem;
   display: flex;
@@ -118,7 +126,7 @@ header {
 }
 
 .search-btn:hover {
-  background-color: #fecb69;
+  background-color: #e86c16;
 }
 
 .search-btn > img {
@@ -128,7 +136,7 @@ header {
 .suggestions {
   width: 99%;
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255);
   box-shadow: 2px 4px 10px -3px rgba(176, 176, 176, 1);
   border-radius: 4px;
   top: 2rem;
@@ -138,14 +146,15 @@ header {
   margin: 0;
   padding: 0.6rem 0.8rem;
   font-size: 0.9rem;
-  font-family: 'Comfortaa Light';
+  font-family: 'Comfortaa Regular';
   white-space: nowrap;
   cursor: pointer;
 }
 
 .suggestions > li:hover {
-  font-family: 'Comfortaa Regular';
-  background-color: #ffffff;
+  font-family: 'Comfortaa Bold';
+  letter-spacing: 0.5px;
+  background-color: #ffb077;
   border-bottom: 1px solid rgb(105, 105, 105);
   border-radius: 4px;
 }
@@ -166,34 +175,101 @@ header {
 }
 
 main {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: 1fr;
+  height: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  min-width: max-content;
+  align-self: center;
 }
 
-.today-weather {
-  margin: 1rem;
-  padding: 1rem;
-  background-color: #ffe3cf;
-  border-radius: 1rem;
+.weather-wrapper {
+  padding: 3rem;
+  border: 6px double black;
+  border-radius: 1.4rem;
   display: flex;
   flex-direction: column;
 }
 
-.tw-main {
+.today-weather {
+  padding: 10px;
+  flex: 1;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.tw-row-wrapper {
+.name-region {
+  margin: 0;
+  padding: 0 0 4px 0;
+  font-size: 2rem;
+}
+
+.country {
+  font-size: 1.4rem;
+}
+
+.tw-main {
+  padding: 3rem 0 3rem 0;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.tw-current {
+  max-width: 400px;
+}
+
+.tw-temp {
+  font-size: 4rem;
+  font-family: 'Comfortaa Bold';
+  text-align: center;
+}
+
+.tw-condition {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.tw-max-min-container {
+  width: 110px;
+  margin-left: 20%;
+  padding-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.tw-min {
+  padding-top: 4px;
+}
+
+.tw-max-wrapper,
+.tw-min-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.tw-max-text,
+.tw-min-text {
+  font-size: 0.9rem;
+}
+
+.tw-info {
+  width: 180px;
+}
+
+.tw-info > div {
+  margin-top: 10px;
+  font-family: 'Comfortaa Light';
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .forecast {
-  margin: 1rem 1rem 1rem 0;
   padding: 1rem;
-  background-color: #ffe3cf;
+  background-color: #ffffff;
   border-radius: 1rem;
+  display: flex;
 }
 
 .forecast-wrapper {

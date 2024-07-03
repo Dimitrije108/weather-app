@@ -97,27 +97,39 @@ const getForecast = (data) => {
 const displayMain = (location, weather, tempUnit) => {
   const nameAndRegion = document.querySelector('.name-region');
   const country = document.querySelector('.country');
-  const high = document.querySelector('.tw-high');
-  const low = document.querySelector('.tw-low');
+  const max = document.querySelector('.tw-max');
+  const min = document.querySelector('.tw-min');
   const icon = document.querySelector('.tw-icon');
   const temp = document.querySelector('.tw-temp');
   const condition = document.querySelector('.tw-condition');
-  const rain = document.querySelector('.tw-rain');
-  const wind = document.querySelector('.tw-wind');
+
   const feelsLike = document.querySelector('.tw-feels-like');
+  const rain = document.querySelector('.tw-rain');
   const humidity = document.querySelector('.tw-humidity');
+  const wind = document.querySelector('.tw-wind');
+
+  const feelsLikeValue = document.querySelector('.feels-like-value');
+  const rainValue = document.querySelector('.rain-value');
+  const humidityValue = document.querySelector('.humidity-value');
+  const windValue = document.querySelector('.wind-value');
 
   nameAndRegion.textContent = `${location.name}, ${location.region}`;
   country.textContent = location.country;
-  high.textContent = `${weather[tempUnit].maxTemp}°${tempUnit}`;
-  low.textContent = `${weather[tempUnit].minTemp}°${tempUnit}`;
+  max.textContent = `${weather[tempUnit].maxTemp}°${tempUnit}`;
+  min.textContent = `${weather[tempUnit].minTemp}°${tempUnit}`;
   icon.src = weather.icon;
   temp.textContent = `${weather[tempUnit].temp}°${tempUnit}`;
   condition.textContent = weather.condition;
-  rain.textContent = `Rain: ${weather.rain}%`;
-  wind.textContent = `Wind: ${weather[tempUnit].windSpeed} ${weather.windDir}`;
-  feelsLike.textContent = `Feels like: ${weather[tempUnit].feelsLike}°${tempUnit}`;
-  humidity.textContent = `Humidity: ${weather.humidity}%`;
+
+  feelsLike.textContent = 'Feels like:';
+  rain.textContent = 'Rain:';
+  humidity.textContent = 'Humidity:';
+  wind.textContent = 'Wind:';
+
+  feelsLikeValue.textContent = `${weather[tempUnit].feelsLike}°${tempUnit}`;
+  rainValue.textContent = `${weather.rain}%`;
+  humidityValue.textContent = `${weather.humidity}%`;
+  windValue.textContent = `${weather[tempUnit].windSpeed} ${weather.windDir}`;
 };
 // Convert the date received from Weather API into a
 // locale format of a day and a month (e.g. 6/30)
@@ -140,41 +152,43 @@ const displayForecast = (forecast, tempUnit) => {
   forecast.forEach((dayObj) => {
     const container = document.createElement('div');
     const wrapper = document.createElement('div');
-    const highLowWrapper = document.createElement('div');
+    const maxMinWrapper = document.createElement('div');
     const forecastInfoWrapper = document.createElement('div');
     const day = document.createElement('div');
     const date = document.createElement('div');
-    const high = document.createElement('div');
-    const low = document.createElement('div');
+    const max = document.createElement('div');
+    const min = document.createElement('div');
     const condition = document.createElement('div');
     const icon = document.createElement('img');
     const rain = document.createElement('div');
 
     container.classList.add(`forecast-container`);
     wrapper.classList.add('forecast-wrapper');
-    highLowWrapper.classList.add('forecast-high-low');
+    maxMinWrapper.classList.add('forecast-max-min');
     forecastInfoWrapper.classList.add('forecast-info');
     day.classList.add('forecast-day');
     date.classList.add('forecast-date');
-    high.classList.add('forecast-high');
-    low.classList.add('forecast-low');
+    max.classList.add('forecast-max');
+    min.classList.add('forecast-min');
     condition.classList.add('forecast-condition');
     rain.classList.add('forecast-rain');
 
     date.textContent = convertDate(dayObj.date);
     day.textContent = extractDay(dayObj.date);
-    high.textContent = `${dayObj[tempUnit].maxTemp}°${tempUnit}`;
-    low.textContent = `${dayObj[tempUnit].minTemp}°${tempUnit}`;
+    max.textContent = `${dayObj[tempUnit].maxTemp}°${tempUnit}`;
+    min.textContent = `${dayObj[tempUnit].minTemp}°${tempUnit}`;
     condition.textContent = dayObj.condition;
     icon.src = dayObj.icon;
+    icon.width = '40';
+    icon.height = '40';
     rain.textContent = `Rain: ${dayObj.rain}%`;
 
-    highLowWrapper.appendChild(high);
-    highLowWrapper.appendChild(low);
+    maxMinWrapper.appendChild(max);
+    maxMinWrapper.appendChild(min);
     forecastInfoWrapper.appendChild(icon);
     forecastInfoWrapper.appendChild(condition);
     forecastInfoWrapper.appendChild(rain);
-    wrapper.appendChild(highLowWrapper);
+    wrapper.appendChild(maxMinWrapper);
     wrapper.appendChild(forecastInfoWrapper);
 
     container.appendChild(day);

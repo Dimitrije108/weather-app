@@ -46,36 +46,50 @@
       </div>
     </header>
     <main>
-      <section class="today-weather">
-        <div class="location">
-          <h5 class="name-region"></h5>
-          <div class="country"></div>
-        </div>
-        <div class="tw-main">
-          <div class="tw-high-low">
-            <div class="tw-high"></div>
-            <div class="tw-low"></div>
+      <section class="weather-wrapper">
+        <div class="today-weather">
+          <div class="location">
+            <h5 class="name-region"></h5>
+            <div class="country"></div>
           </div>
-          <div class="tw-current">
-            <div class="tw-wrapper">
-              <img alt="" class="tw-icon" />
+          <div class="tw-main">
+            <img alt="" class="tw-icon" width="220" height="220" />
+            <div class="tw-current">
               <div class="tw-temp"></div>
+              <div class="tw-condition"></div>
+              <div class="tw-max-min-container">
+                <div class="tw-max-wrapper">
+                  <div class="tw-max-text">max</div>
+                  <div class="tw-max"></div>
+                </div>
+                <div class="tw-min-wrapper">
+                  <div class="tw-min-text">min</div>
+                  <div class="tw-min"></div>
+                </div>
+              </div>
             </div>
-            <div class="tw-condition"></div>
+            <div class="tw-info">
+              <div class="feels-like-wrapper">
+                <div class="tw-feels-like"></div>
+                <div class="feels-like-value"></div>
+              </div>
+              <div class="rain-wrapper">
+                <div class="tw-rain"></div>
+                <div class="rain-value"></div>
+              </div>
+              <div class="humidity-wrapper">
+                <div class="tw-humidity"></div>
+                <div class="humidity-value"></div>
+              </div>
+              <div class="wind-wrapper">
+                <div class="tw-wind"></div>
+                <div class="wind-value"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="tw-row-wrapper">
-          <div class="tw-row-one">
-            <div class="tw-rain"></div>
-            <div class="tw-wind"></div>
-          </div>
-          <div class="tw-row-two">
-            <div class="tw-feels-like"></div>
-            <div class="tw-humidity"></div>
-          </div>
-        </div>
+        <section class="forecast"></section>
       </section>
-      <section class="forecast"></section>
     </main>
     <div class="overlay"></div>
     <div class="loader"></div>
