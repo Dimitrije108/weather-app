@@ -151,7 +151,6 @@ const displayForecast = (forecast, tempUnit) => {
   section.textContent = '';
   forecast.forEach((dayObj) => {
     const container = document.createElement('div');
-    const wrapper = document.createElement('div');
     const maxMinWrapper = document.createElement('div');
     const forecastInfoWrapper = document.createElement('div');
     const day = document.createElement('div');
@@ -163,7 +162,6 @@ const displayForecast = (forecast, tempUnit) => {
     const rain = document.createElement('div');
 
     container.classList.add(`forecast-container`);
-    wrapper.classList.add('forecast-wrapper');
     maxMinWrapper.classList.add('forecast-max-min');
     forecastInfoWrapper.classList.add('forecast-info');
     day.classList.add('forecast-day');
@@ -179,8 +177,8 @@ const displayForecast = (forecast, tempUnit) => {
     min.textContent = `${dayObj[tempUnit].minTemp}°${tempUnit}`;
     condition.textContent = dayObj.condition;
     icon.src = dayObj.icon;
-    icon.width = '40';
-    icon.height = '40';
+    icon.width = '60';
+    icon.height = '60';
     rain.textContent = `Rain: ${dayObj.rain}%`;
 
     maxMinWrapper.appendChild(max);
@@ -188,12 +186,11 @@ const displayForecast = (forecast, tempUnit) => {
     forecastInfoWrapper.appendChild(icon);
     forecastInfoWrapper.appendChild(condition);
     forecastInfoWrapper.appendChild(rain);
-    wrapper.appendChild(maxMinWrapper);
-    wrapper.appendChild(forecastInfoWrapper);
 
     container.appendChild(day);
     container.appendChild(date);
-    container.appendChild(wrapper);
+    container.appendChild(forecastInfoWrapper);
+    container.appendChild(maxMinWrapper);
     section.appendChild(container);
   });
 };
