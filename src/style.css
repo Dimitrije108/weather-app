@@ -20,10 +20,26 @@
   src: url(assets/fonts/Merienda\ Española.ttf);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+:root.light {
+  --color-base-bg: rgb(255, 255, 255);
+  --color-secondary-bg: rgb(255, 255, 255);
+  --color-base-text: rgb(0, 0, 0);
+  --color-border: rgb(168, 168, 168);
+  --color-accent: #ffb077;
+  --background-base: url('/src/assets/wave-design.svg');
+  --theme-name: 'light';
+}
+
+@media (prefers-color-scheme: dark) {
+  :root.dark {
+    --color-base-bg: rgb(0, 0, 0);
+    --color-secondary-bg: rgb(92, 92, 92);
+    --color-base-text: rgb(255, 255, 255);
+    --color-border: rgb(212, 212, 212);
+    --color-accent: #e86c16;
+    --background-base: url('/src/assets/black-wave-design.svg');
+    --theme-name: 'dark';
+  }
 }
 
 html,
@@ -33,12 +49,14 @@ body {
   height: 100%;
   width: 100%;
   font-family: 'Comfortaa Regular', sans-serif;
+  color: var(--color-base-text);
 }
 
 body {
   margin-bottom: 1rem;
   position: relative;
-  background-image: url('/src/assets/wave-design.svg');
+  background-color: var(--color-base-bg);
+  background-image: var(--background-base);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -63,14 +81,13 @@ button {
   color: inherit;
 }
 
-/* color background-color: #e86c16; */
-
 header {
   width: clamp(600px, 50%, 1200px);
   margin: 1rem;
   padding: 0.3rem 1rem;
-  background-color: white;
-  border: 3px double black;
+  background-color: var(--color-secondary-bg);
+  border: 3px double;
+  border-color: var(--color-base-text);
   border-radius: 0.8rem;
 
   align-self: center;
@@ -121,7 +138,10 @@ header {
 #search-input {
   margin-right: 5px;
   padding: 6px 12px;
-  border: 1px solid #bfc1c5;
+  color: var(--color-base-text);
+  background-color: var(--color-base-bg);
+  border: 1px solid;
+  border-color: var(--color-border);
   border-radius: 1rem;
   flex: 1;
 }
@@ -129,7 +149,8 @@ header {
 #search-input:focus {
   outline: none;
   box-shadow: 2px 1px 6px -2px rgba(122, 122, 122, 0.56);
-  border: 1px solid rgb(105, 105, 105);
+  border: 1px solid;
+  border-color: var(--color-base-text);
 }
 
 .search-btn {
@@ -149,7 +170,7 @@ header {
 .suggestions {
   width: 99%;
   position: absolute;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--color-base-bg);
   box-shadow: 2px 4px 10px -3px rgba(176, 176, 176, 1);
   border-radius: 4px;
   top: 2rem;
@@ -161,14 +182,17 @@ header {
   font-size: 0.9rem;
   font-family: 'Comfortaa Regular';
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   cursor: pointer;
 }
 
 .suggestions > li:hover {
   font-family: 'Comfortaa Bold';
   letter-spacing: 0.5px;
-  background-color: #ffb077;
-  border-bottom: 1px solid rgb(105, 105, 105);
+  background-color: var(--color-accent);
+  border-bottom: 1px solid;
+  border-color: var(--color-base-text);
   border-radius: 4px;
 }
 
@@ -178,12 +202,13 @@ header {
 }
 
 .celsius-btn {
-  border-bottom: 1px solid rgb(143, 143, 143);
+  border-bottom: 1px solid;
+  border-color: var(--color-base-text);
   font-family: 'Comfortaa Bold';
 }
 
 .fahrenheit-btn {
-  padding-top: 4px;
+  padding-top: 3px;
   font-family: 'Comfortaa Light';
 }
 
@@ -196,8 +221,9 @@ main {
 
 .weather-wrapper {
   padding: 2rem 3rem;
-  background-color: white;
-  border: 6px double black;
+  background-color: var(--color-secondary-bg);
+  border: 6px double;
+  border-color: var(--color-base-text);
   border-radius: 1.4rem;
   display: flex;
   flex-direction: column;
@@ -279,14 +305,15 @@ main {
   padding-bottom: 2px;
   font-family: 'Comfortaa Light';
   font-size: 0.9rem;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid;
+  border-color: var(--color-base-text);
   display: flex;
   justify-content: space-between;
 }
 
 .forecast {
   padding: 1rem 10px;
-  background-color: #ffffff;
+  background-color: var(--color-secondary-bg);
   border-radius: 1rem;
   display: flex;
 }
@@ -295,7 +322,8 @@ main {
   width: clamp(100px, 140px, 150px);
   margin-right: 1rem;
   padding: 0.8rem 0.5rem;
-  border: 2px dashed black;
+  border: 2px dashed;
+  border-color: var(--color-base-text);
   border-radius: 0.7rem;
   text-align: center;
 

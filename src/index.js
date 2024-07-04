@@ -12,6 +12,9 @@ import fog from './assets/weather-icons/fog.svg';
 import snow from './assets/weather-icons/snow.svg';
 import partlySnowy from './assets/weather-icons/partly-snowy.svg';
 
+const root = document.documentElement;
+root.className = 'dark';
+
 const searchForm = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 const list = document.querySelector('.suggestions');
