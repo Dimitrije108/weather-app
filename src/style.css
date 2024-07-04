@@ -301,7 +301,6 @@ main {
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -338,6 +337,7 @@ main {
 
 .forecast-condition-wrapper {
   margin-bottom: 14px;
+  flex: 1;
 }
 
 .forecast-rain {
