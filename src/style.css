@@ -195,7 +195,7 @@ main {
 }
 
 .weather-wrapper {
-  padding: clamp(1rem, 3rem, 60px);
+  padding: 2rem 3rem;
   background-color: white;
   border: 6px double black;
   border-radius: 1.4rem;
@@ -222,14 +222,10 @@ main {
 }
 
 .tw-main {
-  padding: 3rem 0 3rem 0;
+  padding: 3rem 0 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-}
-
-.tw-current {
-  max-width: 400px;
 }
 
 .tw-temp {
@@ -266,12 +262,16 @@ main {
   font-size: 0.9rem;
 }
 
+.tw-max {
+  font-family: 'Comfortaa Bold';
+}
+
 .tw-min {
   padding-top: 4px;
 }
 
 .tw-info {
-  width: 150px;
+  width: 180px;
 }
 
 .tw-info > div {
@@ -285,22 +285,32 @@ main {
 }
 
 .forecast {
-  padding: 1rem;
+  padding: 1rem 10px;
   background-color: #ffffff;
   border-radius: 1rem;
   display: flex;
 }
 
 .forecast-container {
+  width: clamp(100px, 140px, 150px);
   margin-right: 1rem;
-  padding: 1rem;
+  padding: 0.8rem 0.5rem;
   border: 2px dashed black;
   border-radius: 0.7rem;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .forecast-container:last-child {
   margin: 0;
+}
+
+.forecast-day {
+  font-family: 'Comfortaa Bold';
 }
 
 .forecast-date {
@@ -308,9 +318,30 @@ main {
   font-family: 'Comfortaa Light';
 }
 
-.forecast-wrapper {
+.forecast-condition {
+  font-size: 0.9rem;
+}
+
+.forecast-max-min {
+  margin: 10px 0;
+  font-size: 1.1rem;
+
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.forecast-max {
+  font-family: 'Comfortaa Bold';
+  padding-bottom: 2px;
+}
+
+.forecast-condition-wrapper {
+  margin-bottom: 14px;
+}
+
+.forecast-rain {
+  font-size: 0.9rem;
 }
 
 .overlay {

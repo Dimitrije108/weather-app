@@ -151,8 +151,9 @@ const displayForecast = (forecast, tempUnit) => {
   section.textContent = '';
   forecast.forEach((dayObj) => {
     const container = document.createElement('div');
+    const dayDateWrapper = document.createElement('div');
     const maxMinWrapper = document.createElement('div');
-    const forecastInfoWrapper = document.createElement('div');
+    const conditionWrapper = document.createElement('div');
     const day = document.createElement('div');
     const date = document.createElement('div');
     const max = document.createElement('div');
@@ -162,8 +163,9 @@ const displayForecast = (forecast, tempUnit) => {
     const rain = document.createElement('div');
 
     container.classList.add(`forecast-container`);
+    dayDateWrapper.classList.add('forecast-day-date');
     maxMinWrapper.classList.add('forecast-max-min');
-    forecastInfoWrapper.classList.add('forecast-info');
+    conditionWrapper.classList.add('forecast-condition-wrapper');
     day.classList.add('forecast-day');
     date.classList.add('forecast-date');
     max.classList.add('forecast-max');
@@ -171,26 +173,27 @@ const displayForecast = (forecast, tempUnit) => {
     condition.classList.add('forecast-condition');
     rain.classList.add('forecast-rain');
 
-    date.textContent = convertDate(dayObj.date);
     day.textContent = extractDay(dayObj.date);
+    date.textContent = convertDate(dayObj.date);
     max.textContent = `${dayObj[tempUnit].maxTemp}°${tempUnit}`;
     min.textContent = `${dayObj[tempUnit].minTemp}°${tempUnit}`;
     condition.textContent = dayObj.condition;
     icon.src = dayObj.icon;
-    icon.width = '60';
-    icon.height = '60';
+    icon.width = '70';
+    icon.height = '70';
     rain.textContent = `Rain: ${dayObj.rain}%`;
 
+    dayDateWrapper.appendChild(day);
+    dayDateWrapper.appendChild(date);
     maxMinWrapper.appendChild(max);
     maxMinWrapper.appendChild(min);
-    forecastInfoWrapper.appendChild(icon);
-    forecastInfoWrapper.appendChild(condition);
-    forecastInfoWrapper.appendChild(rain);
+    conditionWrapper.appendChild(icon);
+    conditionWrapper.appendChild(condition);
 
-    container.appendChild(day);
-    container.appendChild(date);
-    container.appendChild(forecastInfoWrapper);
+    container.appendChild(dayDateWrapper);
     container.appendChild(maxMinWrapper);
+    container.appendChild(conditionWrapper);
+    container.appendChild(rain);
     section.appendChild(container);
   });
 };
