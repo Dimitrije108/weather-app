@@ -84,6 +84,7 @@ const addPlaceholderForecastDays = () => {
     icon: getWeatherIcon(1258),
     rain: 0,
     snow: 88,
+    placeholder: true,
   };
   const rainyDay = {
     C: {
@@ -99,6 +100,7 @@ const addPlaceholderForecastDays = () => {
     icon: getWeatherIcon(1195),
     rain: 96,
     snow: 0,
+    placeholder: true,
   };
   const thunderDay = {
     C: {
@@ -114,6 +116,7 @@ const addPlaceholderForecastDays = () => {
     icon: getWeatherIcon(1273),
     rain: 67,
     snow: 0,
+    placeholder: true,
   };
   const sunnyDay = {
     C: {
@@ -129,6 +132,7 @@ const addPlaceholderForecastDays = () => {
     icon: getWeatherIcon(1000),
     rain: 0,
     snow: 0,
+    placeholder: true,
   };
   return [snowyDay, rainyDay, thunderDay, sunnyDay];
 };
@@ -252,6 +256,14 @@ const displayForecast = (forecast, tempUnit) => {
     icon.width = '70';
     icon.height = '70';
     rain.textContent = `Rain: ${dayObj.rain}%`;
+
+    if (dayObj.placeholder === true) {
+      const placeholder = document.createElement('div');
+      placeholder.textContent = 'Placeholder!';
+      placeholder.title = 'For presentation purposes';
+      placeholder.classList.add('placeholder');
+      container.appendChild(placeholder);
+    }
 
     dayDateWrapper.appendChild(day);
     dayDateWrapper.appendChild(date);
