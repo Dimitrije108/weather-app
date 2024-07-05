@@ -178,12 +178,12 @@ const displayMain = (location, weather, tempUnit) => {
   const condition = document.querySelector('.tw-condition');
 
   const feelsLike = document.querySelector('.tw-feels-like');
-  const rain = document.querySelector('.tw-rain');
+  const precipitation = document.querySelector('.tw-precipitation');
   const humidity = document.querySelector('.tw-humidity');
   const wind = document.querySelector('.tw-wind');
 
   const feelsLikeValue = document.querySelector('.feels-like-value');
-  const rainValue = document.querySelector('.rain-value');
+  const precipitationValue = document.querySelector('.precipitation-value');
   const humidityValue = document.querySelector('.humidity-value');
   const windValue = document.querySelector('.wind-value');
 
@@ -196,12 +196,15 @@ const displayMain = (location, weather, tempUnit) => {
   condition.textContent = weather.condition;
 
   feelsLike.textContent = 'Feels like:';
-  rain.textContent = 'Rain:';
+  precipitation.textContent = 'Precipitation:';
   humidity.textContent = 'Humidity:';
   wind.textContent = 'Wind:';
 
   feelsLikeValue.textContent = `${weather[tempUnit].feelsLike}°${tempUnit}`;
-  rainValue.textContent = `${weather.rain}%`;
+  // If snow percentage value is bigger than rain display snow chance inside
+  // the precipitation field
+  precipitationValue.textContent =
+    weather.snow > weather.rain ? `${weather.snow}%` : `${weather.rain}%`;
   humidityValue.textContent = `${weather.humidity}%`;
   windValue.textContent = `${weather[tempUnit].windSpeed} ${weather.windDir}`;
 };
@@ -234,7 +237,7 @@ const displayForecast = (forecast, tempUnit) => {
     const min = document.createElement('div');
     const condition = document.createElement('div');
     const icon = document.createElement('img');
-    const rain = document.createElement('div');
+    const precipitation = document.createElement('div');
 
     container.classList.add(`forecast-container`);
     dayDateWrapper.classList.add('forecast-day-date');
@@ -245,7 +248,7 @@ const displayForecast = (forecast, tempUnit) => {
     max.classList.add('forecast-max');
     min.classList.add('forecast-min');
     condition.classList.add('forecast-condition');
-    rain.classList.add('forecast-rain');
+    precipitation.classList.add('forecast-precipitation');
 
     day.textContent = extractDay(dayObj.date);
     date.textContent = convertDate(dayObj.date);
@@ -255,7 +258,10 @@ const displayForecast = (forecast, tempUnit) => {
     icon.src = dayObj.icon;
     icon.width = '70';
     icon.height = '70';
-    rain.textContent = `Rain: ${dayObj.rain}%`;
+    precipitation.textContent =
+      dayObj.snow > dayObj.rain
+        ? `Precipitation: ${dayObj.snow}%`
+        : `Precipitation: ${dayObj.rain}%`;
 
     if (dayObj.placeholder === true) {
       const placeholder = document.createElement('div');
@@ -275,7 +281,7 @@ const displayForecast = (forecast, tempUnit) => {
     container.appendChild(dayDateWrapper);
     container.appendChild(maxMinWrapper);
     container.appendChild(conditionWrapper);
-    container.appendChild(rain);
+    container.appendChild(precipitation);
     section.appendChild(container);
   });
 };
@@ -296,6 +302,7 @@ const displaySuggestions = (data) => {
   data.forEach((locationData) => {
     const location = document.createElement('li');
     location.textContent = `${locationData.name}, ${locationData.region}, ${locationData.country}`;
+    location.title = `${locationData.name}, ${locationData.region}, ${locationData.country}`;
     location.id = locationData.id;
     list.appendChild(location);
   });
