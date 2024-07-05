@@ -12,14 +12,12 @@ import fog from './assets/weather-icons/fog.svg';
 import snow from './assets/weather-icons/snow.svg';
 import partlySnowy from './assets/weather-icons/partly-snowy.svg';
 
-const root = document.documentElement;
-root.className = 'dark';
-
 const searchForm = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 const list = document.querySelector('.suggestions');
 const celsiusBtn = document.querySelector('.celsius-btn');
 const fahrenheitBtn = document.querySelector('.fahrenheit-btn');
+const changeThemeBtn = document.querySelector('.day-night-button');
 let currentLocationData = '';
 let tempUnit = 'C';
 // Process location data
@@ -264,6 +262,12 @@ const hideLoader = () => {
   document.querySelector('.loader').style.display = 'none';
 };
 
+const changeTheme = () => {
+  const root = document.documentElement;
+  const newTheme = root.className === '' ? 'dark' : '';
+  root.className = newTheme;
+};
+
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
   displayLoader();
@@ -306,6 +310,8 @@ fahrenheitBtn.addEventListener('click', (e) => {
   fahrenheitBtn.style.fontFamily = 'Comfortaa Bold';
   handleTempUnitChange(e.target.value);
 });
+
+changeThemeBtn.addEventListener('click', () => changeTheme());
 
 getWeatherData('belgrade').then((data) => displayData(processData(data)));
 
