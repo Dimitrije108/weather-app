@@ -27,10 +27,11 @@
               type="search"
               id="search-input"
               placeholder="Search location..."
+              title="Search"
             />
             <ul class="suggestions"></ul>
           </div>
-          <button type="submit" class="search-btn">
+          <button type="submit" class="search-btn" title="Search">
             <img
               src="assets/search-icon.svg"
               alt="search icon"
@@ -41,9 +42,17 @@
         </form>
       </div>
       <div class="temperature-switch">
-        <button class="celsius-btn" value="C">°C</button>
-        <button class="fahrenheit-btn" value="F">°F</button>
+        <button class="celsius-btn" value="C" title="Celsius">°C</button>
+        <button class="fahrenheit-btn" value="F" title="Fahrenheit">°F</button>
       </div>
+      <button class="day-night-button" title="Change theme">
+        <img
+          src="assets/day-and-night-icon.svg"
+          alt=""
+          width="40"
+          height="40"
+        />
+      </button>
     </header>
     <main>
       <section class="weather-wrapper">

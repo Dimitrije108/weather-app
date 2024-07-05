@@ -20,7 +20,7 @@
   src: url(assets/fonts/Merienda\ Española.ttf);
 }
 
-:root.light {
+:root {
   --color-base-bg: rgb(255, 255, 255);
   --color-secondary-bg: rgb(255, 255, 255);
   --color-base-text: rgb(0, 0, 0);
@@ -30,16 +30,14 @@
   --theme-name: 'light';
 }
 
-@media (prefers-color-scheme: dark) {
-  :root.dark {
-    --color-base-bg: rgb(0, 0, 0);
-    --color-secondary-bg: rgb(92, 92, 92);
-    --color-base-text: rgb(255, 255, 255);
-    --color-border: rgb(212, 212, 212);
-    --color-accent: #e86c16;
-    --background-base: url('/src/assets/black-wave-design.svg');
-    --theme-name: 'dark';
-  }
+:root.dark {
+  --color-base-bg: rgb(0, 0, 0);
+  --color-secondary-bg: rgb(64, 59, 131);
+  --color-base-text: rgb(255, 255, 255);
+  --color-border: rgb(212, 212, 212);
+  --color-accent: #e86c16;
+  --background-base: url('/src/assets/black-wave-design.svg');
+  --theme-name: 'dark';
 }
 
 html,
@@ -82,7 +80,7 @@ button {
 }
 
 header {
-  width: clamp(600px, 50%, 1200px);
+  width: clamp(600px, 59%, 1200px);
   margin: 1rem;
   padding: 0.3rem 1rem;
   background-color: var(--color-secondary-bg);
@@ -197,6 +195,7 @@ header {
 }
 
 .temperature-switch {
+  margin-right: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -210,6 +209,24 @@ header {
 .fahrenheit-btn {
   padding-top: 3px;
   font-family: 'Comfortaa Light';
+}
+
+.day-night-button {
+  background-color: rgb(255, 255, 255);
+  padding: 4px;
+  border-radius: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-night-button:hover {
+  background-color: rgb(194, 177, 255);
+}
+
+.day-night-container > img {
+  display: block;
 }
 
 main {
@@ -252,6 +269,10 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.tw-current {
+  margin: 0 4rem;
 }
 
 .tw-temp {
