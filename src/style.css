@@ -154,7 +154,7 @@ header {
 .search-btn {
   padding: 4px 6px;
   border-radius: 20px;
-  background-color: #ffe2b3;
+  background-color: white;
 }
 
 .search-btn:hover {
@@ -203,12 +203,20 @@ header {
 .celsius-btn {
   border-bottom: 1px solid;
   border-color: var(--color-base-text);
-  font-family: 'Comfortaa Bold';
+  font-family: 'Comfortaa Light';
 }
 
 .fahrenheit-btn {
   padding-top: 3px;
   font-family: 'Comfortaa Light';
+}
+
+.celsius-btn.active {
+  font-family: 'Comfortaa Bold';
+}
+
+.fahrenheit-btn.active {
+  font-family: 'Comfortaa Bold';
 }
 
 .day-night-button {
@@ -432,6 +440,11 @@ main {
   right: 50%;
   z-index: 3;
   display: none;
+}
+
+.overlay.active,
+.loader.active {
+  display: block;
 }
 
 @keyframes spinner {
