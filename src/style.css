@@ -78,6 +78,7 @@ button {
   border: none;
   font: inherit;
   color: inherit;
+  transition: background-color 0.3s ease;
 }
 
 header {
