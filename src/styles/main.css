@@ -1,0 +1,130 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+@import url('./header.css');
+@import url('./weather-forecast.css');
+
+@font-face {
+  font-family: 'Comfortaa Regular';
+  src: url(../assets/fonts/Comfortaa-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Comfortaa Light';
+  src: url(../assets/fonts/Comfortaa-Light.ttf);
+}
+
+@font-face {
+  font-family: 'Comfortaa Bold';
+  src: url(../assets/fonts/Comfortaa-Bold.ttf);
+}
+
+@font-face {
+  font-family: 'Merienda Española';
+  src: url(../assets/fonts/Merienda\ Española.ttf);
+}
+
+:root {
+  --color-base-bg: rgb(255, 255, 255);
+  --color-secondary-bg: rgb(255, 255, 255);
+  --color-base-text: rgb(0, 0, 0);
+  --color-border: rgb(168, 168, 168);
+  --color-accent: #ffb077;
+  --background-base: url('/src/assets/wave-design.svg');
+  --theme-name: 'light';
+}
+
+:root.dark {
+  --color-base-bg: rgb(0, 0, 0);
+  --color-secondary-bg: rgb(64, 59, 131);
+  --color-base-text: rgb(255, 255, 255);
+  --color-border: rgb(212, 212, 212);
+  --color-accent: #e86c16;
+  --background-base: url('/src/assets/black-wave-design.svg');
+  --theme-name: 'dark';
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'Comfortaa Regular', Arial, Helvetica, sans-serif;
+  color: var(--color-base-text);
+}
+
+body {
+  margin-bottom: 1rem;
+  position: relative;
+  background-color: var(--color-base-bg);
+  background-image: var(--background-base);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  transition: background-color 0.3s ease;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(141, 141, 141, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 2;
+  display: none;
+}
+
+.loader {
+  opacity: 1;
+  margin: auto;
+  background-color: #e86c16;
+  border: 10px solid #eaf0f6;
+  border-radius: 50%;
+  border-top: 10px solid #fecb69;
+  width: 50px;
+  height: 50px;
+  animation: spinner 2s linear infinite;
+  position: absolute;
+  top: 30%;
+  right: 50%;
+  z-index: 3;
+  display: none;
+}
+
+.overlay.active,
+.loader.active {
+  display: block;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

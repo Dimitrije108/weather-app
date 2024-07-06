@@ -1,0 +1,158 @@
+header {
+  width: clamp(400px, 60%, 1200px);
+  margin: 1rem 0;
+  padding: 0.3rem 1rem;
+  background-color: var(--color-secondary-bg);
+  border: 3px double;
+  border-color: var(--color-base-text);
+  border-radius: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo-container {
+  padding-right: clamp(0.5rem, 1.5rem, 32px);
+
+  display: flex;
+  align-items: center;
+}
+
+.logo-weather {
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-family: 'Merienda Española';
+  font-size: 2.5rem;
+}
+
+.weather-text {
+  font-family: 'Comfortaa Light';
+  font-size: 1rem;
+}
+
+.search-container {
+  width: 40%;
+  min-width: 250px;
+  margin-right: 1rem;
+
+  display: flex;
+  flex: 1;
+}
+
+#search-form {
+  flex: 1;
+  display: flex;
+}
+
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+#search-input {
+  margin-right: 5px;
+  padding: 6px 12px;
+  color: var(--color-base-text);
+  background-color: var(--color-base-bg);
+  border: 1px solid;
+  border-color: var(--color-border);
+  border-radius: 1rem;
+  flex: 1;
+}
+
+#search-input:focus {
+  outline: none;
+  box-shadow: 2px 1px 6px -2px rgba(122, 122, 122, 0.56);
+  border: 1px solid;
+  border-color: var(--color-base-text);
+}
+
+.search-btn {
+  padding: 4px 6px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.search-btn:hover {
+  background-color: #e86c16;
+}
+
+.search-btn > img {
+  display: block;
+}
+
+.suggestions {
+  width: 99%;
+  position: absolute;
+  background-color: var(--color-base-bg);
+  box-shadow: 2px 4px 10px -3px rgba(176, 176, 176, 1);
+  border-radius: 4px;
+  top: 2rem;
+}
+
+.suggestions > li {
+  margin: 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  font-family: 'Comfortaa Regular';
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.suggestions > li:hover {
+  font-family: 'Comfortaa Bold';
+  letter-spacing: 0.5px;
+  background-color: var(--color-accent);
+  border-bottom: 1px solid;
+  border-color: var(--color-base-text);
+  border-radius: 4px;
+}
+
+.temperature-switch {
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.celsius-btn {
+  border-bottom: 1px solid;
+  border-color: var(--color-base-text);
+  font-family: 'Comfortaa Light';
+}
+
+.fahrenheit-btn {
+  padding-top: 3px;
+  font-family: 'Comfortaa Light';
+}
+
+.celsius-btn.active {
+  font-family: 'Comfortaa Bold';
+}
+
+.fahrenheit-btn.active {
+  font-family: 'Comfortaa Bold';
+}
+
+.day-night-button {
+  background-color: rgb(255, 255, 255);
+  padding: 4px;
+  border-radius: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-night-button:hover {
+  background-color: rgb(194, 177, 255);
+}
+
+.day-night-container > img {
+  display: block;
+}

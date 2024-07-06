@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import html from './index.html';
-import './style.css';
+import './styles/main.css';
 import initSearchBarEvents from './modules/UI/searchBar';
 import initThemeChanger from './modules/UI/changeTheme';
 import { initTempUnitChanger } from './modules/UI/tempUnit';
