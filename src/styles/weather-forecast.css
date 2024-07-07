@@ -1,7 +1,7 @@
 main {
   width: clamp(400px, 60%, 1200px);
   margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   padding: 2rem 3rem;
   background-color: var(--color-secondary-bg);
   border: 6px double;

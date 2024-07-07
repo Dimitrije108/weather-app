@@ -52,7 +52,6 @@ body {
 }
 
 body {
-  margin-bottom: 1rem;
   position: relative;
   background-color: var(--color-base-bg);
   background-image: var(--background-base);
