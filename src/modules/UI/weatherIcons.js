@@ -61,5 +61,5 @@ export default function getWeatherIcon(code) {
       return weather.url;
     }
   }
-  return 'No icon found';
+  return '';
 }
