@@ -12,13 +12,17 @@ const list = document.querySelector('.suggestions');
 const handleSearchFormSubmission = () => {
   // ERROR: prevent nothing being searched
   if (searchInput.value === '') {
-    return alert("You've searched nothing!");
+    return;
   }
   displayLoader();
   const encodedInput = encodeURI(searchInput.value);
   // Retrieve API data for the searched location
   getWeatherData(encodedInput)
-    .then((data) => displayData(processData(data)))
+    .then((data) => {
+      if (data) {
+        displayData(processData(data));
+      }
+    })
     .then(() => hideLoader());
   // Reset input and suggestions
   searchInput.value = '';
@@ -30,7 +34,11 @@ const handleSuggestionSelection = (e) => {
   const id = `id:${Number(e.target.id)}`;
   // Retrieve API data for the selected suggested location
   getWeatherData(id)
-    .then((data) => displayData(processData(data)))
+    .then((data) => {
+      if (data) {
+        displayData(processData(data));
+      }
+    })
     .then(() => hideLoader());
   // Reset input and suggestions
   searchInput.value = '';

@@ -5,6 +5,15 @@ export default function getSuggestionData(location) {
   return fetch(`${WEATHER_BASE_URL}?key=${API_KEY}&q=${location}`, {
     mode: 'cors',
   })
-    .then((response) => response.json())
-    .then((response) => response);
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Status: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => data)
+    .catch((error) => {
+      console.error(error);
+      alert(error);
+    });
 }

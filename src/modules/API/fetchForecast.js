@@ -5,6 +5,20 @@ export default function getWeatherData(location) {
   return fetch(`${WEATHER_BASE_URL}?key=${API_KEY}&days=7&q=${location}`, {
     mode: 'cors',
   })
-    .then((response) => response.json())
-    .then((response) => response);
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Status: ${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.error) {
+        throw new Error(`Status: ${data.error.code} ${data.error.message}`);
+      }
+      return data;
+    })
+    .catch((error) => {
+      console.error(error);
+      alert(error);
+    });
 }
