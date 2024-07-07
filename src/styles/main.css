@@ -108,7 +108,7 @@ ul {
   height: 50px;
   animation: spinner 2s linear infinite;
   position: absolute;
-  top: 30%;
+  top: 20%;
   right: 50%;
   z-index: 3;
   display: none;
